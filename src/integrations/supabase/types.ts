@@ -47,6 +47,54 @@ export type Database = {
         }
         Relationships: []
       }
+      bookings: {
+        Row: {
+          check_in_date: string
+          check_out_date: string
+          created_at: string
+          guest_id: string
+          id: string
+          is_paid: boolean
+          room_id: string
+          total_price: number
+        }
+        Insert: {
+          check_in_date: string
+          check_out_date: string
+          created_at?: string
+          guest_id: string
+          id?: string
+          is_paid?: boolean
+          room_id: string
+          total_price: number
+        }
+        Update: {
+          check_in_date?: string
+          check_out_date?: string
+          created_at?: string
+          guest_id?: string
+          id?: string
+          is_paid?: boolean
+          room_id?: string
+          total_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bookings_guest_id_fkey"
+            columns: ["guest_id"]
+            isOneToOne: false
+            referencedRelation: "guests"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "bookings_room_id_fkey"
+            columns: ["room_id"]
+            isOneToOne: false
+            referencedRelation: "rooms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       budget_settings: {
         Row: {
           created_at: string
@@ -119,6 +167,30 @@ export type Database = {
         }
         Relationships: []
       }
+      guests: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: string
+          name: string
+          phone_number: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          name: string
+          phone_number: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          name?: string
+          phone_number?: string
+        }
+        Relationships: []
+      }
       incomes: {
         Row: {
           amount: number
@@ -146,6 +218,59 @@ export type Database = {
         }
         Relationships: []
       }
+      payment_reports: {
+        Row: {
+          amount_paid: number
+          booking_id: string | null
+          check_in_date: string
+          check_out_date: string
+          guest_name: string
+          id: string
+          payment_date: string
+          payment_method: string
+          phone_number: string | null
+          room_number: string
+          room_price: number
+          room_type: string
+        }
+        Insert: {
+          amount_paid: number
+          booking_id?: string | null
+          check_in_date: string
+          check_out_date: string
+          guest_name: string
+          id?: string
+          payment_date?: string
+          payment_method: string
+          phone_number?: string | null
+          room_number: string
+          room_price: number
+          room_type: string
+        }
+        Update: {
+          amount_paid?: number
+          booking_id?: string | null
+          check_in_date?: string
+          check_out_date?: string
+          guest_name?: string
+          id?: string
+          payment_date?: string
+          payment_method?: string
+          phone_number?: string | null
+          room_number?: string
+          room_price?: number
+          room_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payment_reports_booking_id_fkey"
+            columns: ["booking_id"]
+            isOneToOne: false
+            referencedRelation: "bookings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       permanent_expenses: {
         Row: {
           amount: number
@@ -170,6 +295,36 @@ export type Database = {
           id?: string
           name?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      rooms: {
+        Row: {
+          created_at: string
+          id: string
+          is_available: boolean
+          is_under_maintenance: boolean
+          room_number: string
+          room_price: number
+          room_type: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_available?: boolean
+          is_under_maintenance?: boolean
+          room_number: string
+          room_price: number
+          room_type: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_available?: boolean
+          is_under_maintenance?: boolean
+          room_number?: string
+          room_price?: number
+          room_type?: string
         }
         Relationships: []
       }
