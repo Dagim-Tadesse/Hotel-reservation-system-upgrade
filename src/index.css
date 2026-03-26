@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 33% 97%;
+    --foreground: 220 15% 15%;
+    --card: 40 25% 95%;
+    --card-foreground: 220 15% 15%;
+    --primary: 220 15% 20%;
+    --primary-foreground: 40 33% 97%;
+    --secondary: 40 20% 90%;
+    --secondary-foreground: 220 15% 20%;
+    --muted: 40 15% 92%;
+    --muted-foreground: 220 10% 45%;
+    --accent: 40 20% 88%;
+    --accent-foreground: 220 15% 20%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 40 15% 85%;
+    --input: 40 15% 85%;
+    --ring: 42 60% 50%;
+    --radius: 0.5rem;
+
+    /* Gold palette */
+    --gold: 42 75% 55%;
+    --gold-light: 42 60% 75%;
+    --gold-dark: 42 80% 38%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+@layer utilities {
+  .text-gradient-gold {
+    background: linear-gradient(135deg, hsl(42 75% 55%), hsl(42 60% 75%), hsl(42 80% 38%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
