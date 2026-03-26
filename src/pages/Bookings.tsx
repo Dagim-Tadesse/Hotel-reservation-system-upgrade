@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { Plus, Trash2, CheckCircle, XCircle } from "lucide-react";
 import { differenceInDays, format, parseISO } from "date-fns";
 
-type Room = { id: string; room_number: string; room_type: string; room_price: number; is_available: boolean };
+type Room = { id: string; room_number: string; room_type: string; room_price: number; is_available: boolean; is_under_maintenance: boolean };
 type Guest = { id: string; name: string; phone_number: string };
 type Booking = {
   id: string; guest_id: string; room_id: string; check_in_date: string; check_out_date: string;
