@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { LayoutDashboard, BedDouble, Users, CalendarDays, CreditCard, BarChart3, LogOut } from "lucide-react";
+import { motion } from "framer-motion";
+import { useAuth } from "@/contexts/AuthContext";
 
 const navItems = [
   { to: "/dashboard", icon: LayoutDashboard, label: "Overview" },
@@ -13,12 +15,7 @@ const navItems = [
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const location = useLocation();
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    localStorage.removeItem("hotel_admin");
-    navigate("/login");
-  };
+  const { signOut, profile, user } = useAuth();
 
   return (
     <div className="flex min-h-screen bg-background">
@@ -32,28 +29,38 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         </div>
 
         <nav className="flex-1 p-4 space-y-1">
-          {navItems.map((item) => {
+          {navItems.map((item, i) => {
             const isActive = location.pathname === item.to;
             return (
-              <Link
+              <motion.div
                 key={item.to}
-                to={item.to}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium transition-colors ${
-                  isActive
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                }`}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.05 }}
               >
-                <item.icon className="w-4 h-4" />
-                {item.label}
-              </Link>
+                <Link
+                  to={item.to}
+                  className={`flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium transition-all ${
+                    isActive
+                      ? "bg-primary text-primary-foreground shadow-sm"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                  }`}
+                >
+                  <item.icon className="w-4 h-4" />
+                  {item.label}
+                </Link>
+              </motion.div>
             );
           })}
         </nav>
 
         <div className="p-4 border-t border-border">
+          <div className="px-3 py-2 mb-2">
+            <p className="text-xs text-muted-foreground">Signed in as</p>
+            <p className="text-sm font-medium text-foreground truncate capitalize">{profile?.full_name || user?.email}</p>
+          </div>
           <button
-            onClick={handleLogout}
+            onClick={signOut}
             className="flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium text-muted-foreground hover:text-destructive hover:bg-muted w-full transition-colors"
           >
             <LogOut className="w-4 h-4" />
@@ -64,7 +71,14 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 
       {/* Main content */}
       <main className="flex-1 overflow-auto">
-        <div className="p-8">{children}</div>
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="p-8"
+        >
+          {children}
+        </motion.div>
       </main>
     </div>
   );

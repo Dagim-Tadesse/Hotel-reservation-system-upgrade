@@ -1,20 +1,14 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/DashboardLayout";
 import { supabase } from "@/integrations/supabase/client";
 import { BedDouble, Users, CalendarDays, DollarSign } from "lucide-react";
+import { motion } from "framer-motion";
+import { StaggerContainer, StaggerItem } from "@/components/AnimatedPage";
 
 const Dashboard = () => {
-  const navigate = useNavigate();
   const [stats, setStats] = useState({ rooms: 0, guests: 0, bookings: 0, revenue: 0, available: 0, occupied: 0 });
 
-  useEffect(() => {
-    if (!localStorage.getItem("hotel_admin")) {
-      navigate("/login");
-      return;
-    }
-    loadStats();
-  }, []);
+  useEffect(() => { loadStats(); }, []);
 
   const loadStats = async () => {
     const [roomsRes, guestsRes, bookingsRes, reportsRes] = await Promise.all([
@@ -38,10 +32,10 @@ const Dashboard = () => {
   };
 
   const cards = [
-    { icon: BedDouble, label: "Total Rooms", value: stats.rooms, sub: `${stats.available} available · ${stats.occupied} occupied` },
-    { icon: Users, label: "Guests", value: stats.guests, sub: "Registered guests" },
-    { icon: CalendarDays, label: "Bookings", value: stats.bookings, sub: "Total bookings" },
-    { icon: DollarSign, label: "Revenue", value: `$${stats.revenue.toLocaleString()}`, sub: "Total collected" },
+    { icon: BedDouble, label: "Total Rooms", value: stats.rooms, sub: `${stats.available} available · ${stats.occupied} occupied`, color: "text-blue-500" },
+    { icon: Users, label: "Guests", value: stats.guests, sub: "Registered guests", color: "text-emerald-500" },
+    { icon: CalendarDays, label: "Bookings", value: stats.bookings, sub: "Total bookings", color: "text-purple-500" },
+    { icon: DollarSign, label: "Revenue", value: `$${stats.revenue.toLocaleString()}`, sub: "Total collected", color: "text-gold-dark" },
   ];
 
   return (
@@ -51,18 +45,23 @@ const Dashboard = () => {
         <p className="text-muted-foreground mt-1">Overview of your hotel operations</p>
       </div>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <StaggerContainer className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {cards.map((c) => (
-          <div key={c.label} className="bg-card border border-border rounded-lg p-6">
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-sm text-muted-foreground font-medium">{c.label}</span>
-              <c.icon className="w-5 h-5 text-gold-dark" />
-            </div>
-            <p className="text-3xl font-bold text-foreground font-serif">{c.value}</p>
-            <p className="text-xs text-muted-foreground mt-1">{c.sub}</p>
-          </div>
+          <StaggerItem key={c.label}>
+            <motion.div
+              whileHover={{ y: -3, boxShadow: "0 10px 30px -15px rgba(0,0,0,0.1)" }}
+              className="bg-card border border-border rounded-xl p-6 transition-all"
+            >
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-sm text-muted-foreground font-medium">{c.label}</span>
+                <c.icon className={`w-5 h-5 ${c.color}`} />
+              </div>
+              <p className="text-3xl font-bold text-foreground font-serif">{c.value}</p>
+              <p className="text-xs text-muted-foreground mt-1">{c.sub}</p>
+            </motion.div>
+          </StaggerItem>
         ))}
-      </div>
+      </StaggerContainer>
     </DashboardLayout>
   );
 };
