@@ -243,8 +243,8 @@ const GuestPortal = () => {
                   className="bg-card border border-border rounded-lg p-5 flex items-center justify-between"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center text-2xl">
-                      {roomImages[b.rooms?.room_type || "single"]}
+                    <div className="w-12 h-12 rounded-lg overflow-hidden">
+                      <img src={roomImages[b.rooms?.room_type || "single"]} alt={b.rooms?.room_type || "room"} className="w-full h-full object-cover" loading="lazy" width={48} height={48} />
                     </div>
                     <div>
                       <p className="font-medium text-foreground">Room {b.rooms?.room_number} — <span className="capitalize">{b.rooms?.room_type}</span></p>
