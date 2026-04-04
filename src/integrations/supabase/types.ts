@@ -95,6 +95,273 @@ export type Database = {
           },
         ]
       }
+      brew_bite_app_users: {
+        Row: {
+          created_at: string
+          display_name: string | null
+          email: string
+          id: string
+          role: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string | null
+          email: string
+          id?: string
+          role?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string | null
+          email?: string
+          id?: string
+          role?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      brew_bite_contact_submissions: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          message: string
+          name: string
+          status: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          message: string
+          name: string
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string
+          name?: string
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      brew_bite_menu_items: {
+        Row: {
+          category: string
+          created_at: string
+          description: string
+          id: string
+          image_url: string | null
+          ingredients: string[]
+          is_available: boolean
+          name: string
+          options: Json
+          price: number
+          tags: string[]
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          description: string
+          id?: string
+          image_url?: string | null
+          ingredients?: string[]
+          is_available?: boolean
+          name: string
+          options?: Json
+          price: number
+          tags?: string[]
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string
+          id?: string
+          image_url?: string | null
+          ingredients?: string[]
+          is_available?: boolean
+          name?: string
+          options?: Json
+          price?: number
+          tags?: string[]
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      brew_bite_order_items: {
+        Row: {
+          created_at: string
+          id: string
+          item_name: string
+          line_total: number
+          menu_item_id: string | null
+          order_id: string
+          quantity: number
+          unit_price: number
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          item_name: string
+          line_total: number
+          menu_item_id?: string | null
+          order_id: string
+          quantity: number
+          unit_price: number
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          item_name?: string
+          line_total?: number
+          menu_item_id?: string | null
+          order_id?: string
+          quantity?: number
+          unit_price?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "brew_bite_order_items_menu_item_id_fkey"
+            columns: ["menu_item_id"]
+            isOneToOne: false
+            referencedRelation: "brew_bite_menu_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "brew_bite_order_items_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "brew_bite_orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      brew_bite_orders: {
+        Row: {
+          created_at: string
+          customer_name: string
+          delivery_address: string | null
+          delivery_fee: number
+          delivery_instructions: string | null
+          email: string
+          id: string
+          order_type: string
+          paid_at: string | null
+          payment_method: string
+          payment_provider: string | null
+          payment_reference: string | null
+          payment_status: string
+          phone: string
+          public_order_code: string | null
+          status: string
+          subtotal_amount: number
+          total_amount: number
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          customer_name: string
+          delivery_address?: string | null
+          delivery_fee?: number
+          delivery_instructions?: string | null
+          email: string
+          id?: string
+          order_type: string
+          paid_at?: string | null
+          payment_method: string
+          payment_provider?: string | null
+          payment_reference?: string | null
+          payment_status?: string
+          phone: string
+          public_order_code?: string | null
+          status?: string
+          subtotal_amount: number
+          total_amount: number
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          customer_name?: string
+          delivery_address?: string | null
+          delivery_fee?: number
+          delivery_instructions?: string | null
+          email?: string
+          id?: string
+          order_type?: string
+          paid_at?: string | null
+          payment_method?: string
+          payment_provider?: string | null
+          payment_reference?: string | null
+          payment_status?: string
+          phone?: string
+          public_order_code?: string | null
+          status?: string
+          subtotal_amount?: number
+          total_amount?: number
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      brew_bite_reservations: {
+        Row: {
+          created_at: string
+          full_name: string
+          guests: number
+          id: string
+          phone: string
+          reservation_date: string
+          reservation_time: string
+          special_requests: string | null
+          status: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          full_name: string
+          guests: number
+          id?: string
+          phone: string
+          reservation_date: string
+          reservation_time: string
+          special_requests?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          full_name?: string
+          guests?: number
+          id?: string
+          phone?: string
+          reservation_date?: string
+          reservation_time?: string
+          special_requests?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       budget_settings: {
         Row: {
           created_at: string
@@ -405,6 +672,8 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      brew_bite_is_admin: { Args: never; Returns: boolean }
+      brew_bite_is_staff_or_admin: { Args: never; Returns: boolean }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
