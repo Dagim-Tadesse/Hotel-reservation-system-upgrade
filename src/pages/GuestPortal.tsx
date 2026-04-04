@@ -293,7 +293,9 @@ const GuestPortal = () => {
 
               <div className="bg-muted/50 rounded-lg p-4 mb-5">
                 <div className="flex items-center gap-3">
-                  <span className="text-3xl">{roomImages[selectedRoom.room_type]}</span>
+                  <span className="text-3xl">
+                    <img src={roomImages[selectedRoom.room_type]} alt={selectedRoom.room_type} className="w-16 h-12 object-cover rounded-md" width={64} height={48} />
+                  </span>
                   <div>
                     <p className="font-medium capitalize text-foreground">{selectedRoom.room_type} Room</p>
                     <p className="text-gold-dark font-bold">${Number(selectedRoom.room_price).toLocaleString()}/night</p>
