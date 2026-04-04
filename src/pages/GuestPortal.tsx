@@ -177,8 +177,9 @@ const GuestPortal = () => {
                   }}
                 >
                   {/* Room image area */}
-                  <div className="h-44 bg-gradient-to-br from-muted via-accent to-muted flex items-center justify-center relative">
-                    <span className="text-6xl">{roomImages[room.room_type] || "🏠"}</span>
+                  <div className="h-44 overflow-hidden relative group">
+                    <img src={roomImages[room.room_type] || roomSingleImg} alt={`${room.room_type} room`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" width={800} height={640} />
+                    <div className="absolute inset-0 bg-gradient-to-t from-card/60 via-transparent to-transparent" />
                     <div className="absolute top-3 right-3">
                       {room.is_available ? (
                         <span className="text-xs bg-green-100 text-green-700 px-2.5 py-1 rounded-full font-medium">Available</span>
