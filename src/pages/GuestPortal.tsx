@@ -7,6 +7,9 @@ import { BedDouble, Calendar, Star, LogOut, Search, X, Check } from "lucide-reac
 import { differenceInDays, format, parseISO } from "date-fns";
 import { AnimatedPage, StaggerContainer, StaggerItem } from "@/components/AnimatedPage";
 import { Link } from "react-router-dom";
+import roomSingleImg from "@/assets/room-single.jpg";
+import roomDoubleImg from "@/assets/room-double.jpg";
+import roomSuiteImg from "@/assets/room-suite.jpg";
 
 type Room = { id: string; room_number: string; room_type: string; room_price: number; is_available: boolean; is_under_maintenance: boolean };
 type Booking = {
@@ -16,9 +19,9 @@ type Booking = {
 };
 
 const roomImages: Record<string, string> = {
-  single: "🛏️",
-  double: "🏨",
-  suite: "👑",
+  single: roomSingleImg,
+  double: roomDoubleImg,
+  suite: roomSuiteImg,
 };
 
 const GuestPortal = () => {
@@ -174,8 +177,9 @@ const GuestPortal = () => {
                   }}
                 >
                   {/* Room image area */}
-                  <div className="h-44 bg-gradient-to-br from-muted via-accent to-muted flex items-center justify-center relative">
-                    <span className="text-6xl">{roomImages[room.room_type] || "🏠"}</span>
+                  <div className="h-44 overflow-hidden relative group">
+                    <img src={roomImages[room.room_type] || roomSingleImg} alt={`${room.room_type} room`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" width={800} height={640} />
+                    <div className="absolute inset-0 bg-gradient-to-t from-card/60 via-transparent to-transparent" />
                     <div className="absolute top-3 right-3">
                       {room.is_available ? (
                         <span className="text-xs bg-green-100 text-green-700 px-2.5 py-1 rounded-full font-medium">Available</span>
@@ -239,8 +243,8 @@ const GuestPortal = () => {
                   className="bg-card border border-border rounded-lg p-5 flex items-center justify-between"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center text-2xl">
-                      {roomImages[b.rooms?.room_type || "single"]}
+                    <div className="w-12 h-12 rounded-lg overflow-hidden">
+                      <img src={roomImages[b.rooms?.room_type || "single"]} alt={b.rooms?.room_type || "room"} className="w-full h-full object-cover" loading="lazy" width={48} height={48} />
                     </div>
                     <div>
                       <p className="font-medium text-foreground">Room {b.rooms?.room_number} — <span className="capitalize">{b.rooms?.room_type}</span></p>
@@ -289,7 +293,9 @@ const GuestPortal = () => {
 
               <div className="bg-muted/50 rounded-lg p-4 mb-5">
                 <div className="flex items-center gap-3">
-                  <span className="text-3xl">{roomImages[selectedRoom.room_type]}</span>
+                  <span className="text-3xl">
+                    <img src={roomImages[selectedRoom.room_type]} alt={selectedRoom.room_type} className="w-16 h-12 object-cover rounded-md" width={64} height={48} />
+                  </span>
                   <div>
                     <p className="font-medium capitalize text-foreground">{selectedRoom.room_type} Room</p>
                     <p className="text-gold-dark font-bold">${Number(selectedRoom.room_price).toLocaleString()}/night</p>
