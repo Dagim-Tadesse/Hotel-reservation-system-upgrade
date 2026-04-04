@@ -7,6 +7,9 @@ import { BedDouble, Calendar, Star, LogOut, Search, X, Check } from "lucide-reac
 import { differenceInDays, format, parseISO } from "date-fns";
 import { AnimatedPage, StaggerContainer, StaggerItem } from "@/components/AnimatedPage";
 import { Link } from "react-router-dom";
+import roomSingleImg from "@/assets/room-single.jpg";
+import roomDoubleImg from "@/assets/room-double.jpg";
+import roomSuiteImg from "@/assets/room-suite.jpg";
 
 type Room = { id: string; room_number: string; room_type: string; room_price: number; is_available: boolean; is_under_maintenance: boolean };
 type Booking = {
@@ -16,9 +19,9 @@ type Booking = {
 };
 
 const roomImages: Record<string, string> = {
-  single: "🛏️",
-  double: "🏨",
-  suite: "👑",
+  single: roomSingleImg,
+  double: roomDoubleImg,
+  suite: roomSuiteImg,
 };
 
 const GuestPortal = () => {
