@@ -1,12 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Sparkles, BedDouble, CreditCard, Clock, Users, Star } from "lucide-react";
+import { ArrowRight, Sparkles, BedDouble, CreditCard, Clock, Users, Star, MapPin, Phone, Mail } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRef } from "react";
 import heroImg from "@/assets/hero-hotel.jpg";
 import roomSingle from "@/assets/room-single.jpg";
 import roomDouble from "@/assets/room-double.jpg";
 import roomSuite from "@/assets/room-suite.jpg";
+import StatsSection from "@/components/landing/StatsSection";
+import TestimonialsSection from "@/components/landing/TestimonialsSection";
 
 const Landing = () => {
   const { user, isAdmin } = useAuth();
@@ -38,7 +40,7 @@ const Landing = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background overflow-hidden">
+    <div className="min-h-screen bg-background overflow-hidden scroll-smooth">
       {/* Subtle animated grain / texture overlay */}
       <div className="fixed inset-0 z-0 pointer-events-none opacity-[0.03]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E\")" }} />
 
@@ -55,6 +57,7 @@ const Landing = () => {
           </Link>
           <div className="flex items-center gap-6">
             <a href="#rooms" className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:block">Rooms</a>
+            <a href="#testimonials" className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:block">Reviews</a>
             <a href="#features" className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden sm:block">Features</a>
             {user ? (
               <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} onClick={handleCTA} className="text-sm bg-primary text-primary-foreground px-5 py-2 rounded-md hover:opacity-90 transition-opacity">
@@ -72,19 +75,22 @@ const Landing = () => {
         </div>
       </motion.nav>
 
-      {/* Hero Section with full-bleed image */}
+      {/* Hero Section */}
       <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Hero background image with parallax */}
         <motion.div style={{ y: heroY }} className="absolute inset-0 z-0">
           <img src={heroImg} alt="Grand Horizon Hotel entrance at golden hour" className="w-full h-full object-cover" width={1920} height={1080} />
           <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
         </motion.div>
 
-        {/* Animated gold accent blobs */}
         <motion.div
           className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-gold/10 rounded-full blur-[120px]"
           animate={{ x: [0, 50, 0], y: [0, -30, 0] }}
           transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-gold/8 rounded-full blur-[100px]"
+          animate={{ x: [0, -40, 0], y: [0, 40, 0] }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
         />
 
         <motion.div style={{ opacity: heroOpacity }} className="relative z-10 max-w-5xl mx-auto px-6 text-center">
@@ -104,7 +110,7 @@ const Landing = () => {
             </motion.p>
 
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9 }} className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.button whileHover={{ scale: 1.03, boxShadow: "0 10px 30px -10px rgba(0,0,0,0.3)" }} whileTap={{ scale: 0.97 }} onClick={handleCTA} className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3.5 rounded-md text-base font-medium">
+              <motion.button whileHover={{ scale: 1.03, boxShadow: "0 10px 30px -10px rgba(0,0,0,0.3)" }} whileTap={{ scale: 0.97 }} onClick={handleCTA} className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3.5 rounded-md text-base font-medium shimmer-btn">
                 {user ? (isAdmin ? "Go to Dashboard" : "Browse Rooms") : "Book Your Stay"} <ArrowRight className="w-4 h-4" />
               </motion.button>
               <motion.a whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} href="#rooms" className="inline-flex items-center gap-2 border border-border bg-background/60 backdrop-blur-sm text-foreground px-8 py-3.5 rounded-md text-base font-medium hover:bg-muted transition-colors">
@@ -122,9 +128,11 @@ const Landing = () => {
         </motion.div>
       </section>
 
+      {/* Stats */}
+      <StatsSection />
+
       {/* Room Types */}
       <section id="rooms" className="py-24 relative overflow-hidden">
-        {/* Decorative background pattern */}
         <div className="absolute inset-0 z-0">
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
@@ -155,7 +163,6 @@ const Landing = () => {
                   </div>
                 )}
 
-                {/* Room image with hover zoom */}
                 <div className="h-56 overflow-hidden relative">
                   <motion.img
                     src={room.img}
@@ -166,7 +173,6 @@ const Landing = () => {
                     height={640}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent" />
-                  {/* Room number badge */}
                   <div className="absolute bottom-3 left-3 bg-background/80 backdrop-blur-sm border border-border px-3 py-1 rounded-full">
                     <span className="text-xs font-medium text-muted-foreground">Rooms {room.roomNumbers}</span>
                   </div>
@@ -194,6 +200,11 @@ const Landing = () => {
           </div>
         </div>
       </section>
+
+      {/* Testimonials */}
+      <div id="testimonials">
+        <TestimonialsSection />
+      </div>
 
       {/* Features */}
       <section id="features" className="py-24 relative bg-card">
@@ -228,7 +239,7 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* CTA Section with background image */}
+      {/* CTA Section */}
       <section className="py-24 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img src={heroImg} alt="" className="w-full h-full object-cover" loading="lazy" width={1920} height={1080} />
@@ -239,7 +250,7 @@ const Landing = () => {
             <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-6">Ready to Experience Luxury?</h2>
             <p className="text-lg text-muted-foreground mb-8 max-w-lg mx-auto">Create an account today and book your perfect stay at Grand Horizon.</p>
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-              <Link to="/login" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-10 py-4 rounded-md text-lg font-medium hover:opacity-90 transition-opacity">
+              <Link to="/login" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-10 py-4 rounded-md text-lg font-medium hover:opacity-90 transition-opacity shimmer-btn">
                 Get Started <ArrowRight className="w-5 h-5" />
               </Link>
             </motion.div>
@@ -248,10 +259,44 @@ const Landing = () => {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border py-12 bg-card">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <p className="font-serif text-xl font-bold mb-2">Grand<span className="text-gradient-gold">Horizon</span></p>
-          <p className="text-sm text-muted-foreground">A full-stack hotel management system built with React, TypeScript & Supabase.</p>
+      <footer className="border-t border-border bg-primary text-primary-foreground">
+        <div className="max-w-7xl mx-auto px-6 py-16">
+          <div className="grid md:grid-cols-3 gap-12 mb-12">
+            <div>
+              <p className="font-serif text-2xl font-bold mb-4">Grand<span className="text-gold">Horizon</span></p>
+              <p className="text-primary-foreground/60 text-sm leading-relaxed">
+                A premier luxury boutique hotel offering world-class accommodations and unparalleled hospitality since 2008.
+              </p>
+            </div>
+            <div>
+              <h4 className="font-serif font-semibold mb-4 text-sm tracking-widest uppercase text-gold">Quick Links</h4>
+              <ul className="space-y-3">
+                <li><a href="#rooms" className="text-sm text-primary-foreground/60 hover:text-gold transition-colors">Our Rooms</a></li>
+                <li><a href="#testimonials" className="text-sm text-primary-foreground/60 hover:text-gold transition-colors">Guest Reviews</a></li>
+                <li><a href="#features" className="text-sm text-primary-foreground/60 hover:text-gold transition-colors">Features</a></li>
+                <li><Link to="/login" className="text-sm text-primary-foreground/60 hover:text-gold transition-colors">Sign In</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-serif font-semibold mb-4 text-sm tracking-widest uppercase text-gold">Contact</h4>
+              <ul className="space-y-3">
+                <li className="flex items-center gap-2 text-sm text-primary-foreground/60">
+                  <MapPin className="w-4 h-4 text-gold" /> 123 Oceanview Drive, Paradise Bay
+                </li>
+                <li className="flex items-center gap-2 text-sm text-primary-foreground/60">
+                  <Phone className="w-4 h-4 text-gold" /> +1 (555) 123-4567
+                </li>
+                <li className="flex items-center gap-2 text-sm text-primary-foreground/60">
+                  <Mail className="w-4 h-4 text-gold" /> hello@grandhorizon.com
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-primary-foreground/10 pt-8 text-center">
+            <p className="text-xs text-primary-foreground/40">
+              © 2023 Grand Horizon Hotel. Built with React, TypeScript & Supabase.
+            </p>
+          </div>
         </div>
       </footer>
     </div>
