@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Sparkles, BedDouble, CreditCard, Clock, Users, Star, MapPin, Phone, Mail } from "lucide-react";
+import { ArrowRight, Sparkles, BedDouble, CreditCard, Clock, Users, Star } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRef } from "react";
 import heroImg from "@/assets/hero-hotel.jpg";
@@ -134,8 +134,6 @@ const Landing = () => {
       {/* Room Types */}
       <section id="rooms" className="py-24 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
           <motion.div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-gold/5 rounded-full blur-[100px]" animate={{ scale: [1, 1.1, 1] }} transition={{ duration: 10, repeat: Infinity }} />
           <motion.div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[80px]" animate={{ scale: [1, 1.15, 1] }} transition={{ duration: 12, repeat: Infinity }} />
         </div>
@@ -207,10 +205,7 @@ const Landing = () => {
       </div>
 
       {/* Features */}
-      <section id="features" className="py-24 relative bg-card">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-        </div>
+      <section id="features" className="py-24 relative">
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
             <p className="text-sm tracking-[0.3em] uppercase text-gold-dark font-medium mb-4">System Features</p>
@@ -259,45 +254,10 @@ const Landing = () => {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border bg-primary text-primary-foreground">
-        <div className="max-w-7xl mx-auto px-6 py-16">
-          <div className="grid md:grid-cols-3 gap-12 mb-12">
-            <div>
-              <p className="font-serif text-2xl font-bold mb-4">Grand<span className="text-gold">Horizon</span></p>
-              <p className="text-primary-foreground/60 text-sm leading-relaxed">
-                A premier luxury boutique hotel offering world-class accommodations and unparalleled hospitality since 2008.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-serif font-semibold mb-4 text-sm tracking-widest uppercase text-gold">Quick Links</h4>
-              <ul className="space-y-3">
-                <li><a href="#rooms" className="text-sm text-primary-foreground/60 hover:text-gold transition-colors">Our Rooms</a></li>
-                <li><a href="#testimonials" className="text-sm text-primary-foreground/60 hover:text-gold transition-colors">Guest Reviews</a></li>
-                <li><a href="#features" className="text-sm text-primary-foreground/60 hover:text-gold transition-colors">Features</a></li>
-                <li><Link to="/login" className="text-sm text-primary-foreground/60 hover:text-gold transition-colors">Sign In</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-serif font-semibold mb-4 text-sm tracking-widest uppercase text-gold">Contact</h4>
-              <ul className="space-y-3">
-                <li className="flex items-center gap-2 text-sm text-primary-foreground/60">
-                  <MapPin className="w-4 h-4 text-gold" /> 123 Oceanview Drive, Paradise Bay
-                </li>
-                <li className="flex items-center gap-2 text-sm text-primary-foreground/60">
-                  <Phone className="w-4 h-4 text-gold" /> +1 (555) 123-4567
-                </li>
-                <li className="flex items-center gap-2 text-sm text-primary-foreground/60">
-                  <Mail className="w-4 h-4 text-gold" /> hello@grandhorizon.com
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-primary-foreground/10 pt-8 text-center">
-            <p className="text-xs text-primary-foreground/40">
-              © 2023 Grand Horizon Hotel. Built with React, TypeScript & Supabase.
-            </p>
-          </div>
-        </div>
+      <footer className="py-6 text-center">
+        <p className="text-xs text-muted-foreground">
+          © 2023 Grand<span className="text-gradient-gold">Horizon</span> Hotel · Built with React, TypeScript & Supabase
+        </p>
       </footer>
     </div>
   );
