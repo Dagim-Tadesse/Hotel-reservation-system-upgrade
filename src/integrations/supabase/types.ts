@@ -674,6 +674,14 @@ export type Database = {
     Functions: {
       brew_bite_is_admin: { Args: never; Returns: boolean }
       brew_bite_is_staff_or_admin: { Args: never; Returns: boolean }
+      brew_bite_reservation_is_available: {
+        Args: {
+          exclude_reservation_id?: string
+          target_date: string
+          target_time: string
+        }
+        Returns: boolean
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
