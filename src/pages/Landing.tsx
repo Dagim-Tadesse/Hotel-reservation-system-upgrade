@@ -134,8 +134,6 @@ const Landing = () => {
       {/* Room Types */}
       <section id="rooms" className="py-24 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
           <motion.div className="absolute -top-40 -right-40 w-[600px] h-[600px] bg-gold/5 rounded-full blur-[100px]" animate={{ scale: [1, 1.1, 1] }} transition={{ duration: 10, repeat: Infinity }} />
           <motion.div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[80px]" animate={{ scale: [1, 1.15, 1] }} transition={{ duration: 12, repeat: Infinity }} />
         </div>
