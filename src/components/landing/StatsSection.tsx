@@ -34,32 +34,28 @@ const stats = [
 
 export default function StatsSection() {
   return (
-    <section className="py-16 relative overflow-hidden bg-primary">
-      <div className="absolute inset-0 z-0 opacity-10">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 20% 50%, hsl(var(--gold) / 0.3) 0%, transparent 50%),
-                           radial-gradient(circle at 80% 50%, hsl(var(--gold) / 0.2) 0%, transparent 50%)`
-        }} />
-      </div>
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+    <section className="py-10 relative">
+      <div className="max-w-5xl mx-auto px-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
           {stats.map((stat, i) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.6 }}
-              className="text-center"
+              transition={{ delay: i * 0.1, duration: 0.5 }}
+              className="text-center py-4 border-b border-border lg:border-b-0 lg:border-r last:border-r-0 last:border-b-0"
             >
-              <div className="font-serif text-4xl md:text-5xl font-bold text-primary-foreground mb-2">
-                {stat.decimal ? (
-                  <span>{stat.value}{stat.suffix}</span>
-                ) : (
-                  <AnimatedCounter target={stat.value} suffix={stat.suffix} />
-                )}
+              <div className="font-serif text-3xl md:text-4xl font-bold mb-1">
+                <span className="text-gradient-gold">
+                  {stat.decimal ? (
+                    <>{stat.value}{stat.suffix}</>
+                  ) : (
+                    <AnimatedCounter target={stat.value} suffix={stat.suffix} />
+                  )}
+                </span>
               </div>
-              <div className="text-sm tracking-widest uppercase text-primary-foreground/60 font-medium">
+              <div className="text-xs tracking-[0.2em] uppercase text-muted-foreground font-medium">
                 {stat.label}
               </div>
             </motion.div>
