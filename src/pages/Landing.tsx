@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Sparkles, BedDouble, CreditCard, Clock, Users, Star, MapPin, Phone, Mail } from "lucide-react";
+import { ArrowRight, Sparkles, BedDouble, CreditCard, Clock, Users, Star } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRef } from "react";
 import heroImg from "@/assets/hero-hotel.jpg";
