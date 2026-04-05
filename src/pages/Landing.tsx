@@ -207,10 +207,7 @@ const Landing = () => {
       </div>
 
       {/* Features */}
-      <section id="features" className="py-24 relative bg-card">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-        </div>
+      <section id="features" className="py-24 relative">
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
             <p className="text-sm tracking-[0.3em] uppercase text-gold-dark font-medium mb-4">System Features</p>
